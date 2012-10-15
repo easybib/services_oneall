@@ -1,0 +1,27 @@
+{
+    "name": "easybib/services_oneall",
+    "description": "WIP API wrapper for OneAll",
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Till Klampaeckel",
+            "email": "till@php.net",
+            "homepage": "http://till.klampaeckel.de/blog/"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "EasyBib\\Services": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.php.net/"
+        }
+    ],
+    "require": {
+        "pear-pear/http_request2": ">=2.0.0"
+    }
+}
