@@ -1,0 +1,56 @@
+{
+  "response": {
+    "request": {
+      "date": "Thu, 25 Aug 2011 13:38:21  0200",
+      "resource": "/connections/8875cb47-9b2e-40f9-8ae0-8428c06937a9.json",
+      "status": {
+        "flag": "success",
+        "code": 200
+      }
+    },
+    "result": {
+      "status": {
+        "flag": "success",
+        "code": 200,
+        "info": "The user successfully authenticated"
+      },
+      "data": {
+        "connection": {
+          "connection_token": "8875cb47-9b2e-40f9-8ae0-8428c06937a9",
+          "date": "Thu, 25 Aug 2011 13:35:40 +0200",
+          "plugin": "social_link"        
+        },                        
+        "user": {
+          "user_token": "12345678-1234-1234-1234-123456789012",
+          "identity": {
+            "identity_token": "a3ba5j55-aacc-25ag-a4ah-ga4ahab3a2aa",
+            "provider": "twitter",
+            "id": "http://twitter.com/ExampleUser",
+            "displayName": "Firstname Lastname",
+            "name": {
+              "formatted": "Firstname Lastname"
+            },
+            "preferredUsername": "MyUserNameRocks",
+            "thumbnailUrl": "http://a1.twimg.com/sticky/default_profile_images/default_profile_6_normal.png",
+            "urls": [{
+                "value": "http://twitter.com/ExampleUser",
+                "type": "profile"
+              }
+            ],
+            "accounts": [{
+              "domain": "twitter.com",
+              "userid": "123456789",
+              "username": "ExampleUser"
+              }
+            ],
+            "photos": [{
+                "value": "http://a1.twimg.com/sticky/default_profile_images/default_profile_6_normal.png",
+                "type": "thumbnail"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
