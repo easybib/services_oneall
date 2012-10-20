@@ -12,13 +12,24 @@ class User
     protected $data;
 
     /**
+     * @var \stdClass
+     */
+    protected $user;
+
+    /**
      * CTOR
      *
      * @param \stdClass $data
+     *
+     * @throws \InvalidArgumentException When no 'user' data is contained.
      */
     public function __construct(\stdClass $data)
     {
         $this->data = $data;
+        if (!isset($this->data->user)) {
+            throw new \InvalidArgumentException("No user data found.");
+        }
+        $this->user = $this->data->user;
     }
 
     /**
@@ -30,11 +41,11 @@ class User
      */
     public function getEmails($confirmed = true)
     {
-        if (false === isset($this->data->identity->emails)) {
+        if (false === isset($this->user->identity->emails)) {
             return array();
         }
 
-        $emails = $this->data->identity->emails;
+        $emails = $this->user->identity->emails;
         if (true !== $confirmed) {
             return $emails;
         }
