@@ -60,4 +60,38 @@ class User
         }
         return $keep;
     }
+
+    /**
+     * Return the first name of a user (givenName).
+     *
+     * @return string
+     */
+    public function getFirst()
+    {
+        if (!isset($this->user->identity->name)) {
+            return '';
+        }
+        $name = $this->user->identity->name;
+        if (!isset($name->givenName)) {
+            return '';
+        }
+        return $name->givenName;
+    }
+
+    /**
+     * Return the last name of a user (familyName)
+     *
+     * @return string
+     */
+    public function getLast()
+    {
+        if (!isset($this->user->identity->name)) {
+            return '';
+        }
+        $name = $this->user->identity->name;
+        if (!isset($name->familyName)) {
+            return '';
+        }
+        return $name->familyName;
+    }
 }

@@ -1,0 +1,73 @@
+{
+    "response": {
+        "request": {
+            "date":"Sat, 20 Oct 2012 14:59:24 +0200",
+            "resource":"\/connections\/foobar.json",
+            "status": {
+                "flag":"success",
+                "code":200,
+                "info":"Your request has been processed successfully"
+            }
+        },
+        "result": {
+            "status": {
+                "flag":"success",
+                "code":200,
+                "info":"The user successfully authenticated"
+            },
+            "data": {
+                "action":"authenticate_user",
+                "plugin": {
+                    "key":"social_login",
+                    "data": {
+                        "action":"login",
+                        "operation":"user_profile_read",
+                        "reason":"user_authenticated",
+                        "status":"success"
+                    }
+                },
+                "connection": {
+                    "connection_token":"foobar",
+                    "date":"Fri, 19 Oct 2012 23:47:23 +0200"
+                },
+                "user": {
+                    "uuid":"1",
+                    "user_token":"user-token",
+                    "identity": {
+                        "identity_token":"identity-token",
+                        "provider":"google",
+                        "source": {
+                            "name":"Google",
+                            "key":"google"
+                        },
+                        "id":"https:\/\/www.google.com\/accounts\/o8\/id?id=google-id",
+                        "displayName":"Till Klampaeckel",
+                        "name": {
+                            "formatted":"Till Klampaeckel",
+                            "givenName":"Till",
+                            "familyName":"Klampaeckel"
+                        },
+                        "emails": [
+                            {
+                                "value":"till@some-google-account.tld",
+                                "is_verified":true
+                            }
+                        ],
+                        "urls": [
+                            {
+                                "value":"https:\/\/www.google.com\/profiles\/google-id",
+                                "type":"profile"
+                            }
+                        ],
+                        "accounts": [
+                            {
+                                "domain":"google.com","userid":"1"
+                            }
+                        ],
+                        "languages":[{"value":"English"}]
+                    }
+                }
+            }
+        }
+    }
+}

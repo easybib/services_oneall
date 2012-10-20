@@ -76,8 +76,34 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
 
         $user = new User($connection);
+
         $this->assertInternalType('array', $user->getEmails());
         $this->assertTrue(count($user->getEmails()) == 0);
+    }
+
+    /**
+     * Ensure 'first' and 'last' are returned as expected.
+     *
+     * @return void
+     */
+    public function testGetNames()
+    {
+        $oneall = $this->getMock(
+            'EasyBib\\Services\\OneAll',
+            array('makeRequest',),
+            array('pub', 'priv', 'subdomain',)
+        );
+
+        $oneall->expects($this->once())
+            ->method('makeRequest')
+            ->will($this->returnValue($this->getGetConnectionResponse('success-google')));
+
+        $connection = $oneall->accept($this->setupClient())
+            ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
+
+        $user = new User($connection);
+        $this->assertEquals('Till', $user->getFirst());
+        $this->assertEquals('Klampaeckel', $user->getLast());
     }
 
     /**
