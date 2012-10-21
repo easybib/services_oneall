@@ -60,6 +60,11 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
         $this->assertObjectHasAttribute('user', $connection);
     }
 
+    /**
+     * This class is used to make the response a little more accessible.
+     *
+     * @return void
+     */
     public function testUserEntity()
     {
         $oneall = $this->getMock(
@@ -79,6 +84,30 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
 
         $this->assertInternalType('array', $user->getEmails());
         $this->assertTrue(count($user->getEmails()) == 0);
+    }
+
+    /**
+     * Test for retrieving tokens.
+     *
+     * @return void
+     */
+    public function testGetUsers()
+    {
+        $oneall = $this->getMock(
+            'EasyBib\\Services\\OneAll',
+            array('makeRequest',),
+            array('pub', 'priv', 'subdomain',)
+        );
+
+        $oneall->expects($this->once())
+            ->method('makeRequest')
+            ->will($this->returnValue($this->getResponse('getUsers', 'success')));
+
+        $users = $oneall->accept($this->setupClient())->getUsers();
+        $this->assertInternalType('object', $users);
+        $this->assertObjectHasAttribute('pagination', $users);
+        $this->assertObjectHasAttribute('count', $users);
+        $this->assertObjectHasAttribute('entries', $users);
     }
 
     /**
