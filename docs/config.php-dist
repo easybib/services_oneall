@@ -1,0 +1,6 @@
+<?php
+return array(
+    'public'    => 'public key',
+    'private'   => 'private key',
+    'subdomain' => 'subdomain',
+);
