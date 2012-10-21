@@ -30,7 +30,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
 
         $oneall->expects($this->once())
             ->method('makeRequest')
-            ->will($this->returnValue($this->getGetConnectionResponse('failure')));
+            ->will($this->returnValue($this->getResponse('getConnection', 'failure')));
 
         $oneall->accept($this->setupClient())->getConnection('some-token');
     }
@@ -50,7 +50,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
 
         $oneall->expects($this->once())
             ->method('makeRequest')
-            ->will($this->returnValue($this->getGetConnectionResponse()));
+            ->will($this->returnValue($this->getResponse('getConnection')));
 
         $connection = $oneall->accept($this->setupClient())
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
@@ -70,7 +70,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
 
         $oneall->expects($this->once())
             ->method('makeRequest')
-            ->will($this->returnValue($this->getGetConnectionResponse()));
+            ->will($this->returnValue($this->getResponse('getConnection')));
 
         $connection = $oneall->accept($this->setupClient())
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
@@ -96,7 +96,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
 
         $oneall->expects($this->once())
             ->method('makeRequest')
-            ->will($this->returnValue($this->getGetConnectionResponse('success-google')));
+            ->will($this->returnValue($this->getResponse('getConnection', 'success-google')));
 
         $connection = $oneall->accept($this->setupClient())
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
@@ -109,14 +109,18 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
     /**
      * Setup a `\HTTP_Request2_Response` with the given type!
      *
+     * @param string $func Type of all: getConnection, getUsers
      * @param string $type 'success' or 'failure'
      *
      * @return \HTTP_Request2_Response
      */
-    protected function getGetConnectionResponse($type = 'success')
+    protected function getResponse($func, $type = 'success')
     {
         $response = new \HTTP_Request2_Response('HTTP/1.1 200');
-        $json     = file_get_contents(dirname(dirname(dirname(__DIR__))) . '/fixtures/getConnection/' . $type . '.json');
+        $json     = file_get_contents(
+            dirname(dirname(dirname(__DIR__))) . '/fixtures/' . $func . '/' . $type . '.json'
+        );
+
         $response->appendBody($json);
         return $response;
     }
