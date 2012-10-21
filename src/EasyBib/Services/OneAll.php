@@ -74,7 +74,7 @@ class OneAll
     public function getConnection($token)
     {
         $response = $this->makeRequest(
-            sprintf('%s/connections/%s.%s', $this->getDomain(), $token, $this->format)
+            sprintf('/connections/%s.%s', $token, $this->format)
         );
         return $this->parseResponse($response);
     }
@@ -90,8 +90,10 @@ class OneAll
     {
         $client = $this->getClient();
 
+        $endpoint = sprintf('%s%s', $this->getDomain(), $url);
+
         try {
-            $client->setUrl($url);
+            $client->setUrl($endpoint);
             $client->setMethod(\HTTP_Request2::METHOD_GET);
 
             return $client->send();
