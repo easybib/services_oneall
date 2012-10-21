@@ -116,10 +116,16 @@ class OneAll
     /**
      * Evaluate the response and return the data portion.
      *
+     * OneAll returns two different stati:
+     *  - request status (can be successful, but response can still contain an error)
+     *  - response status
+     *
+     * @param \HTTP_Request2_Response $response The response object from the client.
+     *
      * @return \stdClass
      * @throws \RuntimeException When the HTTP status code is not 200.
      * @throws \DomainException  When we cannot parse/evaluate the status of the response.
-     * @throw  \RuntimeException When the user did not authenticate.
+     * @throw  \RuntimeException When the user did not authenticate. (or something else)
      */
     protected function parseResponse(\HTTP_Request2_Response $response)
     {
@@ -130,8 +136,16 @@ class OneAll
         $json   = $response->getBody();
         $answer = json_decode($json);
 
-        if (!isset($answer->response->result->status->flag) || (false === ($answer instanceof \stdClass))) {
+        if (false === ($answer instanceof \stdClass)) {
             throw new \DomainException("Could not decode/parse response from OneAll: {$json}");
+        }
+
+        $requestStatus = $answer->response->request->status;
+        if ($requestStatus->flag == 'error') {
+            throw new \RuntimeException(
+                "The request failed: {$requestStatus->info}",
+                $requestStatus->code
+            );
         }
 
         $status = $answer->response->result->status;
