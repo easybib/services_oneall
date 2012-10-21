@@ -1,16 +1,33 @@
 <?php
 namespace EasyBib\Services;
 
+use EasyBib\Services\OneAll\User;
+
 class OneAll
 {
+    /**
+     * @var \HTTP_Request2
+     */
     protected $client;
 
+    /**
+     * @var string
+     */
     protected $format = 'json';
 
+    /**
+     * @var string
+     */
     protected $privateKey;
 
+    /**
+     * @var string
+     */
     protected $publicKey;
 
+    /**
+     * @var string
+     */
     protected $subDomain;
 
     /**
@@ -76,7 +93,58 @@ class OneAll
         $response = $this->makeRequest(
             sprintf('/connections/%s.%s', $token, $this->format)
         );
-        return $this->parseResponse($response);
+        $connection = $this->parseResponse($response);
+        if (!isset($connection->user)) {
+            throw new \DomainException("No 'user' found.");
+        }
+        return $connection;
+    }
+
+    /**
+     * Retrieve a user.
+     *
+     * @param string $token The user's token, e.g. from {@link self::getUsers()}.
+     *
+     * @return User
+     */
+    public function getUser($token)
+    {
+        $response = $this->makeRequest(
+            sprintf('/users/%s.%s', $token, $this->format)
+        );
+        $data = $this->parseResponse($response);
+        if (!isset($data->user)) {
+            throw new \DomainException("No 'user' found.");
+        }
+        return new User($data->user);
+    }
+
+    /**
+     * Returns all users who have previously connected through OneAll.
+     *
+     * OneAll returns a max of 500 records with a single request. Paginate for more.
+     *
+     * @param int $page Optional page parameter.
+     *
+     * @return \stdClass
+     * @throws \InvalidArgumentException When page parameter is of wrong type.
+     * @throws \DomainException          When the response doesn't contain 'users'.
+     */
+    public function getUsers($page = 1)
+    {
+        if (!is_int($page)) {
+            throw new \InvalidArgumentException("Page parameter must be an integer.");
+        }
+
+        $response = $this->makeRequest(
+            sprintf('/users.%s?page=%d', $this->format, $page)
+        );
+
+        $answer = $this->parseResponse($response);
+        if (false === isset($answer->users)) {
+            throw new \DomainException("Could not fetch users from response.");
+        }
+        return $answer->users;
     }
 
     /**
