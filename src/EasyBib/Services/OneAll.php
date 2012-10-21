@@ -69,7 +69,7 @@ class OneAll
      * @param string $token
      *
      * @return \stdClass
-     * @throws \RuntimeException On transport error.
+     * @throws \DomainException When no 'user' is found.
      */
     public function getConnection($token)
     {
