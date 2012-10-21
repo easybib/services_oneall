@@ -80,7 +80,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
         $connection = $oneall->accept($this->setupClient())
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
 
-        $user = new User($connection);
+        $user = new User($connection->user);
 
         $this->assertInternalType('array', $user->getEmails());
         $this->assertTrue(count($user->getEmails()) == 0);
@@ -130,7 +130,7 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
         $connection = $oneall->accept($this->setupClient())
             ->getConnection('8875cb47-9b2e-40f9-8ae0-8428c06937a9');
 
-        $user = new User($connection);
+        $user = new User($connection->user);
         $this->assertEquals('Till', $user->getFirst());
         $this->assertEquals('Klampaeckel', $user->getLast());
     }

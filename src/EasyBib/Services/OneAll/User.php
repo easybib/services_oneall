@@ -9,11 +9,6 @@ class User
     /**
      * @var \stdClass
      */
-    protected $data;
-
-    /**
-     * @var \stdClass
-     */
     protected $user;
 
     /**
@@ -25,11 +20,7 @@ class User
      */
     public function __construct(\stdClass $data)
     {
-        $this->data = $data;
-        if (!isset($this->data->user)) {
-            throw new \InvalidArgumentException("No user data found.");
-        }
-        $this->user = $this->data->user;
+        $this->user = $data;
     }
 
     /**
