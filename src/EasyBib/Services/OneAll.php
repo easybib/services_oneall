@@ -148,10 +148,14 @@ class OneAll
             );
         }
 
-        $status = $answer->response->result->status;
-        if ($status->flag == 'error') {
-            throw new \RuntimeException($status->info, $status->code);
+        // when new accounts are linked - this is set
+        if (isset($answer->response->result->status)) {
+            $status = $answer->response->result->status;
+            if ($status->flag == 'error') {
+                throw new \RuntimeException($status->info, $status->code);
+            }
         }
+
         return $answer->response->result->data;
     }
 }
