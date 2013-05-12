@@ -18,8 +18,8 @@
         "connection": {
           "connection_token": "8875cb47-9b2e-40f9-8ae0-8428c06937a9",
           "date": "Thu, 25 Aug 2011 13:35:40 +0200",
-          "plugin": "social_link"        
-        },                        
+          "plugin": "social_link"
+        },
         "user": {
           "user_token": "12345678-1234-1234-1234-123456789012",
           "identity": {
