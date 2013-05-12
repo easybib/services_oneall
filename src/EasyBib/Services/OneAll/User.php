@@ -73,6 +73,16 @@ class User
     }
 
     /**
+     * Most likely a URL identifying the user.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->user->identity->id;
+    }
+
+    /**
      * Return the last name of a user (familyName)
      *
      * @return string
@@ -87,5 +97,29 @@ class User
             return '';
         }
         return $name->familyName;
+    }
+
+    /**
+     * @param bool $source
+     *
+     * @return string|\stdClass
+     */
+    public function getProvider($source = false)
+    {
+        if (true !== $source) {
+            return $this->user->identity->provider;
+        }
+        if (!property_exists($this->user->identity, 'source')) {
+            throw new \DomainException("No source.");
+        }
+        return $this->user->identity->source;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

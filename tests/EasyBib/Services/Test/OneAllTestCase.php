@@ -185,4 +185,34 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
         // assert we get what we get
         $this->assertNotEmpty($user->getEmails(false));
     }
+
+    /**
+     * @see https://github.com/easybib/services_oneall/issues/2
+     * @dataProvider successProvider
+     */
+    public function testMoreConvenienceMethods($fixture, $token)
+    {
+        $oneall = $this->setupMock();
+        $oneall->expects($this->once())
+            ->method('makeRequest')
+            ->will($this->returnValue($this->getResponse('getConnection', $fixture)));
+
+        $connection = $oneall->accept($this->setupClient())
+            ->getConnection($token);
+
+        $user = new User($connection->user);
+
+        $this->assertNotEmpty($user->getId());
+        $this->assertNotEmpty($user->getProvider());
+        $this->assertSame($connection->user, $user->getUser());
+    }
+
+    public static function successProvider()
+    {
+        return array(
+            array('success', '8875cb47-9b2e-40f9-8ae0-8428c06937a9'),
+            array('success-google', '8875cb47-9b2e-40f9-8ae0-8428c06937a9'),
+            array('success-openid', 'blah-blub')
+        );
+    }
 }
