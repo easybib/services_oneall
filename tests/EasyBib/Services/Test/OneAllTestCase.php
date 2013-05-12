@@ -169,6 +169,20 @@ class OneAllTestCase extends \PHPUnit_Framework_TestCase
      */
     public function testUnverifiedEmails()
     {
+        $oneall = $this->setupMock();
+        $oneall->expects($this->once())
+            ->method('makeRequest')
+            ->will($this->returnValue($this->getResponse('getConnection', 'success-openid')));
 
+        $connection = $oneall->accept($this->setupClient())
+            ->getConnection("blah-blub");
+
+        $user = new User($connection->user);
+
+        // assert we get no verified emails
+        $this->assertEmpty($user->getEmails());
+
+        // assert we get what we get
+        $this->assertNotEmpty($user->getEmails(false));
     }
 }

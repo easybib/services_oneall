@@ -44,6 +44,9 @@ class User
         $keep = array();
 
         foreach ($emails as $email) {
+            if (false === property_exists($email, 'is_verified')) {
+                continue;
+            }
             if (true !== $email->is_verified) {
                 continue;
             }

@@ -1,0 +1,78 @@
+{
+    "response": {
+        "request": {
+            "date": "Sun, 12 May 2013 17:37:35 +0200",
+            "resource": "/connections/blah-blub.json",
+            "status": {
+                "flag": "success",
+                "code": 200,
+                "info": "Your request has been processed successfully"
+            }
+        },
+        "result": {
+            "status": {
+                "flag": "success",
+                "code": 200,
+                "info": "The user successfully authenticated"
+            },
+            "data": {
+                "action": "authenticate_user",
+                "plugin": {
+                    "key": "social_login",
+                    "data": {
+                        "action": "login",
+                        "operation": "user_profile_read",
+                        "reason": "user_authenticated",
+                        "status": "success"
+                    }
+                },
+                "connection": {
+                    "connection_token": "blah-blub",
+                    "date": "Sun, 12 May 2013 17:36:22 +0200"
+                },
+                "user": {
+                    "uuid": "test",
+                    "user_token": "blah-blub",
+                    "identity": {
+                        "identity_token": "blah-blub-123",
+                        "provider": "openid",
+                        "source": {
+                            "name": "OpenID",
+                            "key": "openid"
+                        },
+                        "id": "http://open.id.example.org/till",
+                        "displayName": "Till",
+                        "name": {
+                            "formatted": "Till Klampaeckel"
+                        },
+                        "preferredUsername": "Till",
+                        "gender": "male",
+                        "utcOffset": "2:00",
+                        "currentLocation": "Germany",
+                        "emails": [
+                            {
+                                "value": "till@example.org"
+                            }
+                        ],
+                        "urls": [
+                            {
+                                "value": "http://open.id.example.org/till",
+                                "type": "profile"
+                            }
+                        ],
+                        "accounts": [
+                            {
+                                "domain": "http://open.id.example.org/till"
+                            }
+                        ],
+                        "languages": [
+                            {
+                                "value": "English"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
