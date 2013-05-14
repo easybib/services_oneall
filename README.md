@@ -10,7 +10,17 @@ More? Work in progress — or feel free to send pull-requests!
 
 ## Installation
 
-Add the following to your `composer.json`:
+This code is available through composer and [packagist.org](https://packagist.org/packages/easybib/services_oneall) - add the following to your `composer.json`:
+
+```json
+{
+  "require": {
+    "easybib/services_oneall": "*"
+  }
+}
+```
+
+Or define a repository:
 
 ```json
 {
